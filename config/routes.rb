@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       post 'recipes/create'
       get '/show/:id', to: 'recipes#show'
       delete '/destroy/:id', to: 'recipes#destroy'
+      post 'users/create'
+      get 'users/index'
     end
   end
   root 'homepage#index'
