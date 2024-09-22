@@ -13,6 +13,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
+    user = User.includes(:ingredients).find(params[:id])
+    
+    render json: {
+      user: user,
+      ingredients: user.ingredients
+    }
   end
 
   def destroy
