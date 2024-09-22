@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       post 'users/create'
       get 'users/index'
       get 'users/show/:id', to: 'users#show'
+      post 'ingredients/create'
+      delete 'ingredients/destroy/:id', to: 'ingredients#destroy'
     end
   end
   root 'homepage#index'
