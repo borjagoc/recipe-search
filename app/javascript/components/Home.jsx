@@ -15,7 +15,7 @@ export default () => {
   const [userError, setUserError] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
   const [users, setUsers] = useState([]);
-  console.log("selectedUser", selectedUser);
+
   useEffect(() => {
     const url = "/api/v1/users/index";
     fetch(url)
@@ -51,12 +51,11 @@ export default () => {
         }
         throw new Error("There was an error when creating the user.");
       })
-      .then((response) => console.log(response))
+      .then((response) => setUsers([...users, response]))
       .catch((error) => console.error(error));
   };
 
   const handleButtonClick = (e) => {
-    console.log("Button clicked");
     if (isButtonDisabled) {
       e.preventDefault();
     }
@@ -66,9 +65,10 @@ export default () => {
     <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
       <div className="jumbotron jumbotron-fluid bg-transparent">
         <div className="container secondary-color">
-          <h1 className="display-4">Food Recipes</h1>
+          <h1 className="display-4">Dinner Time</h1>
           <p className="lead">
-            A curated list of recipes for the best homemade meal and delicacies.
+            View the list of curated recipes or select a user to find the
+            relevant results.
           </p>
           <hr className="my-4" />
           <FormControl isInvalid={userError}>
@@ -113,7 +113,13 @@ export default () => {
             <Button as={Link} to="/recipes" colorScheme="red">
               View all recipes
             </Button>
-            <Button colorScheme="teal" isDisabled={isButtonDisabled}>
+            <Button
+              as={Link}
+              to={`user/${selectedUser}`}
+              colorScheme="teal"
+              isDisabled={isButtonDisabled}
+              onClick={handleButtonClick}
+            >
               Search recipes by user
             </Button>
           </HStack>
