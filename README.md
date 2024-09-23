@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Rails App: Recipe Search
 
-Things you may want to cover:
+## Overview
 
-* Ruby version
+Recipe Search is a web application that allows users to view a list of relevant recipes for a given list of ingredients.
 
-* System dependencies
+## Features
 
-* Configuration
+- **User Management**:
 
-* Database creation
+  - Fetch and display a list of users.
+  - Add new users to the system.
+  - Select a user to search for recipes.
 
-* Database initialization
+- **Recipe Search**:
+  - Search for recipes based on the ingredients of the selected user. When a new ingredient is added the relevant list of recipes is updated.
+  - The recipes are sorted in order of relevance (most matched ingredients first)
 
-* How to run the test suite
+## Installation
 
-* Services (job queues, cache servers, search engines, etc.)
+1. Clone the repository.
+2. Install dependencies:
+   ```sh
+   bundle install
+   yarn install
+   ```
 
-* Deployment instructions
+## Start the server
 
-* ...
+`bin/dev`
