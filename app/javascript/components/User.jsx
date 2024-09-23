@@ -24,6 +24,7 @@ const User = () => {
   const [ingredients, setIngredients] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const url = `/api/v1/users/show/${params.id}`;
@@ -35,11 +36,14 @@ const User = () => {
         throw new Error("There was an error when fetching the response.");
       })
       .then((response) => {
-        console.log("response", response);
         setUser(response.user);
         setIngredients(response.ingredients);
       });
   }, []);
+
+  useEffect(() => {
+    handleFindRecipes();
+  }, [ingredients]);
 
   const handleOnClick = () => {
     if (newIngredient === "") {
@@ -98,6 +102,7 @@ const User = () => {
   };
 
   const handleFindRecipes = () => {
+    setIsLoading(true);
     const url = "/api/v1/recipes/find_relevant_recipes";
     const token = document.querySelector('meta[name="csrf-token"]').content;
     fetch(url, {
@@ -115,8 +120,8 @@ const User = () => {
         throw new Error("There was an error when fetching the response.");
       })
       .then((response) => {
-        // const relevantRecipes = recipes.map((r) => r.recipe);
         setRecipes(response);
+        setIsLoading(false);
       })
       .catch((error) => console.error(error));
   };
@@ -190,7 +195,11 @@ const User = () => {
               </Button>
             </HStack>
           </FormControl>
-          <Button colorScheme="red" onClick={handleFindRecipes}>
+          <Button
+            colorScheme="red"
+            onClick={handleFindRecipes}
+            isLoading={isLoading}
+          >
             Find recipes
           </Button>
         </VStack>
