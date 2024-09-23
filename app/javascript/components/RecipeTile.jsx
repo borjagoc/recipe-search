@@ -14,7 +14,11 @@ export const RecipeTile = (props) => {
   const imageUrl = extractImageUrl(image);
 
   return (
-    <Link to={`/recipes/${recipe.id}`}>
+    <Link
+      to={`/recipes/${recipe.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Box
         as="button"
         position="relative"

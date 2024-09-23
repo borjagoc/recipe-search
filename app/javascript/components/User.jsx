@@ -41,10 +41,6 @@ const User = () => {
       });
   }, []);
 
-  useEffect(() => {
-    handleFindRecipes();
-  }, [ingredients]);
-
   const handleOnClick = () => {
     if (newIngredient === "") {
       setIngredientError(true);
