@@ -56,6 +56,8 @@ const User = () => {
       setErrorMessage("The ingredient is already on the list.");
       return;
     }
+    setIngredientError(false);
+    setErrorMessage("");
     const url = "/api/v1/ingredients/create";
     const token = document.querySelector('meta[name="csrf-token"]').content;
     fetch(url, {
