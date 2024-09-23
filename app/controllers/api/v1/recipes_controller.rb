@@ -1,15 +1,6 @@
 class Api::V1::RecipesController < ApplicationController
-  def index
-    recipe = Recipe.all.order(created_at: :desc)
-    render json: recipe
-  end
-
-  def create
-  end
-
-  def show
-  end
-
-  def destroy
+  def find_relevant_recipes
+    recipes = Recipe.search_by_ingredients(params[:ingredients])
+    render json: recipes
   end
 end

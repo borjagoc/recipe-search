@@ -14,6 +14,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
+import Recipes from "./Recipes";
 
 const User = () => {
   const params = useParams();
@@ -22,6 +23,7 @@ const User = () => {
   const [ingredientError, setIngredientError] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     const url = `/api/v1/users/show/${params.id}`;
@@ -94,6 +96,30 @@ const User = () => {
       })
       .catch((error) => console.error(error));
   };
+
+  const handleFindRecipes = () => {
+    const url = "/api/v1/recipes/find_relevant_recipes";
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ingredients: ingredients.map((i) => i.name) }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("There was an error when fetching the response.");
+      })
+      .then((response) => {
+        // const relevantRecipes = recipes.map((r) => r.recipe);
+        setRecipes(response);
+      })
+      .catch((error) => console.error(error));
+  };
   return (
     <>
       <Box p={4} bg="gray.100">
@@ -123,9 +149,10 @@ const User = () => {
                     <HStack
                       key={ingredient.id}
                       p={1}
-                      justifyContent="flex-start"
+                      justifyContent="space-between"
                       alignItems="center"
                       spacing={2}
+                      width="25%"
                     >
                       <ListItem>{ingredient.name}</ListItem>
                       <IconButton
@@ -144,8 +171,8 @@ const User = () => {
           )}
 
           <FormControl isInvalid={ingredientError}>
-            <HStack spacing={6} w="100%">
-              <VStack w="100%" align="self-start">
+            <HStack spacing={6}>
+              <VStack align="self-start">
                 <Input
                   mt={8}
                   placeholder="Ingredient name"
@@ -163,9 +190,12 @@ const User = () => {
               </Button>
             </HStack>
           </FormControl>
-          <Button colorScheme="red">Find recipes</Button>
+          <Button colorScheme="red" onClick={handleFindRecipes}>
+            Find recipes
+          </Button>
         </VStack>
       </Box>
+      {recipes.length > 0 && <Recipes recipes={recipes} />}
     </>
   );
 };

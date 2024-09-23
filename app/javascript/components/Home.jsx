@@ -109,20 +109,15 @@ export default () => {
             </HStack>
           </FormControl>
           <hr className="my-4" />
-          <HStack spacing={6}>
-            <Button as={Link} to="/recipes" colorScheme="red">
-              View all recipes
-            </Button>
-            <Button
-              as={Link}
-              to={`user/${selectedUser}`}
-              colorScheme="teal"
-              isDisabled={isButtonDisabled}
-              onClick={handleButtonClick}
-            >
-              Search recipes by user
-            </Button>
-          </HStack>
+          <Button
+            as={Link}
+            to={`user/${selectedUser}`}
+            colorScheme="red"
+            isDisabled={isButtonDisabled}
+            onClick={handleButtonClick}
+          >
+            Search recipes by user
+          </Button>
         </div>
       </div>
     </div>
