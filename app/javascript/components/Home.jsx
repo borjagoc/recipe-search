@@ -67,8 +67,8 @@ export default () => {
         <div className="container secondary-color">
           <h1 className="display-4">Dinner Time</h1>
           <p className="lead">
-            View the list of curated recipes or select a user to find the
-            relevant results.
+            Add a new user or select an existing one to find the relevant
+            results.
           </p>
           <hr className="my-4" />
           <FormControl isInvalid={userError}>
