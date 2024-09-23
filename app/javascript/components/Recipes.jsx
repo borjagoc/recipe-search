@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { SimpleGrid, Text, Box, Box, Button, VStack } from "@chakra-ui/react";
+import React from "react";
+import { SimpleGrid, Text, Box, VStack } from "@chakra-ui/react";
 import { RecipeTile } from "./RecipeTile";
 
 const Recipes = ({ recipes }) => {
@@ -21,9 +21,11 @@ const Recipes = ({ recipes }) => {
                   {recipe.title}
                 </Text>
                 {match_count === total_ingredients ? (
-                  <Text color="green.500">Total Match</Text>
+                  <Box p={2} mb={4} borderRadius="8px" bg="green.500" size="sm">
+                    Total Match
+                  </Box>
                 ) : (
-                  <Box bg="grey" size="sm">
+                  <Box p={2} mb={4} borderRadius="8px" bg="lightgray" size="sm">
                     Ingredients Match: {match_count} / {total_ingredients}
                   </Box>
                 )}
